@@ -8,7 +8,7 @@ def fetch_author_html(author, index, total):
 
     resp = requests.get(author.get('link'))
 
-    print('{index} of {total}!'.format(index=index + 1,total=total)
+    print('{index} of {total}!'.format(index=index + 1,total=total))
 
     if resp.status_code != 200:
         return {
