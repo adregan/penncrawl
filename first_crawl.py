@@ -8,7 +8,7 @@ def fetch_author_html(author, index, total):
 
     resp = requests.get(author.get('link'))
 
-    print('{index} of {total}!'.format(index=index + 1,total=total))
+    print('Crawled {index} of {total}!'.format(index=index + 1,total=total))
 
     if resp.status_code != 200:
         return {
@@ -24,7 +24,7 @@ def fetch_author_html(author, index, total):
 
 def run(file_path):
     with open(file_path, 'r') as file:
-        authors = json.loads(file.read())[:2]
+        authors = json.loads(file.read())
 
     author_html = [
         fetch_author_html(author, i, len(authors))
