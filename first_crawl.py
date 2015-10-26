@@ -3,10 +3,12 @@ import sqlite3
 import json
 from time import sleep
 
-def fetch_author_html(author):
+def fetch_author_html(author, index, total):
+    sleep(30)
+
     resp = requests.get(author.get('link'))
 
-    sleep(30)
+    print('{index} of {total}!'.format(index=index + 1,total=total)
 
     if resp.status_code != 200:
         return {
@@ -24,7 +26,10 @@ def run(file_path):
     with open(file_path, 'r') as file:
         authors = json.loads(file.read())[:2]
 
-    author_html = [fetch_author_html(author) for author in authors]
+    author_html = [
+        fetch_author_html(author, i, len(authors))
+        for i, author in enumerate(authors)
+    ]
 
     return author_html
 
