@@ -1,6 +1,7 @@
 import json
 from output import create_output_dir
 from output import save_author_data
+from parse import parse_html
 
 if __name__ == '__main__':
     with open('authors.json', 'r') as file:
