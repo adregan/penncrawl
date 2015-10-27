@@ -44,5 +44,6 @@ def parse_link_element(link):
         'title': title,
         'length': file_length,
         'link': link.get('href'),
-        'event': event 
+        'event': event,
+        'date': date
     }
