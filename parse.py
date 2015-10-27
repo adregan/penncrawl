@@ -19,8 +19,8 @@ def parse_link_element(link):
         string
         for string in (
             link.find_previous('img', src='/images/play.gif')
-            .find_previous()
-            .find_previous()
+            .find_previous('a')
+            .find_previous('li')
             .stripped_strings
         )
         if string.lower() != 'mp3'
