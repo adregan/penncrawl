@@ -8,11 +8,19 @@ if __name__ == '__main__':
         authors = json.loads(file.read())
 
     output_path = create_output_dir()
-    print(output_path)
+
     for author in authors:
-        author_data = {}
-    #     author_data = parse_html(html)
+        name = author.get('author').strip()
+        link = author.get('link')
+        html = author.get('html')
+        recordings = parse_html(html)
+        author_data = {
+            'name': name,
+            'link': link,
+            'recordings': recordings
+        }
         save_author_data(
-            author.get('author'),
+            name,
             author_data,
-            output_path)
+            output_path
+        )
