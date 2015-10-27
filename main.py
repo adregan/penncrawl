@@ -3,7 +3,7 @@ from output import create_output_dir
 from output import save_author_data
 
 if __name__ == '__main__':
-    with open('author_html.json', 'r') as file:
+    with open('authors.json', 'r') as file:
         authors = json.loads(file.read())
 
     output_path = create_output_dir()
