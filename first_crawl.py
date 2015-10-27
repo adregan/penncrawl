@@ -4,7 +4,7 @@ import json
 from time import sleep
 
 def fetch_author_html(author, index, total):
-    sleep(30)
+    sleep(15)
 
     resp = requests.get(author.get('link'))
 
