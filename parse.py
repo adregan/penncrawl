@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import re
+import dateutil.parser as dparser
 
 def parse_html(html):
     soup = BeautifulSoup(html, 'html5lib')
@@ -33,6 +34,11 @@ def parse_link_element(link):
                    .replace(')', ''))
 
     event = ' '.join(link.find_previous('h2').stripped_strings)
+
+    try:
+        date = dparser.parse(event, fuzzy=True).isoformat()
+    except ValueError as err:
+        date = ''
 
     return {
         'title': title,
