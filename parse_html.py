@@ -24,4 +24,3 @@ def create_output_dir(directory_name):
 def run():
     output_path = create_output('output')
 
-run()
