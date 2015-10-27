@@ -21,6 +21,8 @@ def create_output_dir(directory_name='output'):
         return file_path
 
 # save_author_data : String Dict String -> IO
+# converts the author's name into a file name like_this.json and saves
+# the data in the output folder
 def save_author_data(author, data, output_path):
     file_name = '{}.json'.format(
         underscore(parameterize(author)))
