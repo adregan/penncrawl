@@ -1,23 +1,39 @@
 from bs4 import BeautifulSoup
+from bs4 import NavigableString
 import re
 import dateutil.parser as dparser
+from error import error_writer
 
-def parse_html(html):
+def parse_html(html, link_to_page):
     soup = BeautifulSoup(html, 'html5lib')
     recordings = [
-        parse_link_element(link)
+        parse_link_element(link, link_to_page)
         for link in soup.find_all('a')
         if link.get('href') and link.get('href').endswith('mp3')
     ]
 
     return recordings
 
-def parse_link_element(link):
+def parse_link_element(link, link_to_page):
     time_reg = r'\(([\d]*:)?([\d]*):([\d]*)\)'
 
     reading_elem = link.find_parent('li')
     if not reading_elem:
-        reading_elem = link.previous_sibling
+        try: 
+            reading_elem = [
+                el
+                for el in link.previous_siblings
+                if isinstance(el, NavigableString) and el.strip()
+            ][0]
+        except IndexError as err:
+            # Nothing more we can do
+            error = {
+                'error': 'Couldn\'t find the reading title', 
+                'page': '{}'.format(link_to_page),
+                'link': '{}'.format(link.get('href'))
+            }
+            error_writer(error)
+            reading_elem = ''
 
     event_elem = link.find_previous(re.compile("^h"))
 
