@@ -24,8 +24,8 @@ def create_output_dir(directory_name='output'):
 # converts the author's name into a file name like_this.json and saves
 # the data in the output folder
 def save_author_data(author, data, output_path):
-    file_name = '{}.json'.format(
-        underscore(parameterize(author)))
+    flip_name = '_'.join(reversed(parameterize(author).split('-')))
+    file_name = '{}.json'.format(flip_name)
 
     file_path = '{output_path}/{file_name}'.format(
         output_path=output_path, file_name=file_name)
