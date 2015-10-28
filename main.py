@@ -13,7 +13,7 @@ if __name__ == '__main__':
         name = author.get('author').strip()
         link = author.get('link')
         html = author.get('html')
-        recordings = parse_html(html)
+        recordings = parse_html(html, link)
         author_data = {
             'name': name,
             'link': link,
