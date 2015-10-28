@@ -59,6 +59,7 @@ def parse_link_element(link, link_to_page):
             'page': '{}'.format(link_to_page),
             'link': '{}'.format(link.get('href'))
         }
+        error_writer(error)
         file_length = ''
 
     event = ' '.join(event_elem.stripped_strings)
@@ -71,6 +72,7 @@ def parse_link_element(link, link_to_page):
             'page': '{}'.format(link_to_page),
             'link': '{}'.format(link.get('href'))
         }
+        error_writer(error)
         date = ''
 
     return {
