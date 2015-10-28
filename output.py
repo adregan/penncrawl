@@ -32,3 +32,5 @@ def save_author_data(author, data, output_path):
 
     with open(file_path, 'w') as file:
         file.write(json.dumps(data))
+
+    print('Saved {} to disk'.format(author))
