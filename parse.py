@@ -10,7 +10,7 @@ def parse_html(html):
         if link.get('href') and link.get('href').endswith('mp3')
     ]
 
-    print(recordings)
+    return recordings
 
 def parse_link_element(link):
     time_reg = r'\(([\d]*:)?([\d]*):([\d]*)\)'
