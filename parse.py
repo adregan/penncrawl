@@ -48,10 +48,13 @@ def parse_link_element(link, link_to_page):
 
     title = re.split(time_reg, full_title_text)[0].strip()
 
-    file_length = (re.search(time_reg, full_title_text)
-                   .group()
-                   .replace('(', '')
-                   .replace(')', ''))
+    try:
+        file_length = (re.search(time_reg, full_title_text)
+                       .group()
+                       .replace('(', '')
+                       .replace(')', ''))
+    except AttributeError as err:
+        file_length = ''
 
     event = ' '.join(event_elem.stripped_strings)
 
