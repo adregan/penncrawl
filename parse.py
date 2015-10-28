@@ -15,16 +15,20 @@ def parse_html(html):
 def parse_link_element(link):
     time_reg = r'\(([\d]*:)?([\d]*):([\d]*)\)'
 
-    full_title_text = ' '.join([
-        string
-        for string in (
-            link.find_previous('img', src='/images/play.gif')
-            .find_previous('a')
-            .find_previous('li')
-            .stripped_strings
-        )
-        if string.lower() != 'mp3'
-    ])
+    reading_elem = link.find_parent('li')
+    if not reading_elem:
+        reading_elem = link.previous_sibling
+
+    event_elem = link.find_previous(re.compile("^h"))
+
+    try:
+        full_title_text = ' '.join([
+            string
+            for string in reading_elem.stripped_strings
+            if string.lower() != 'mp3'
+        ])
+    except AttributeError as err:
+        full_title_text = reading_elem
 
     title = re.split(time_reg, full_title_text)[0].strip()
 
@@ -33,7 +37,7 @@ def parse_link_element(link):
                    .replace('(', '')
                    .replace(')', ''))
 
-    event = ' '.join(link.find_previous('h2').stripped_strings)
+    event = ' '.join(event_elem.stripped_strings)
 
     try:
         date = dparser.parse(event, fuzzy=True).isoformat()
