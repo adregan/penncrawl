@@ -54,6 +54,11 @@ def parse_link_element(link, link_to_page):
                        .replace('(', '')
                        .replace(')', ''))
     except AttributeError as err:
+        error = {
+            'error': 'Couldn\'t parse the recording length', 
+            'page': '{}'.format(link_to_page),
+            'link': '{}'.format(link.get('href'))
+        }
         file_length = ''
 
     event = ' '.join(event_elem.stripped_strings)
@@ -61,6 +66,11 @@ def parse_link_element(link, link_to_page):
     try:
         date = dparser.parse(event, fuzzy=True).isoformat()
     except ValueError as err:
+        error = {
+            'error': 'Couldn\'t parse the event date', 
+            'page': '{}'.format(link_to_page),
+            'link': '{}'.format(link.get('href'))
+        }
         date = ''
 
     return {
